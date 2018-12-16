@@ -16,7 +16,9 @@ process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(200) )
 process.source = cms.Source("PoolSource",
                                 # replace 'myfile.root' with the source file you want to use
                                 fileNames = cms.untracked.vstring(
-
+# this root file is given in the link
+            # https://twiki.cern.ch/twiki/bin/viewauth/CMS/CMSEgyptAnalysisSchool2015TrackingVertexingExercise
+                                        
             'root://eoscms.cern.ch//eos/cms/store/cmst3/group/das2014/tracking/tracks_and_vertices.root'
                 )
                             )
