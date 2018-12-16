@@ -94,7 +94,9 @@ int i =0;
 {
 cout << "the number of the track = " << i+1 << " , "<< "ch "<< it -> charge()<<" , "<<"eta "<<it ->eta() <<" , "<< "phi "<<it ->phi()<<" , "<<"pt "<<it ->pt()<<" , "<<"dxy "<< it ->dxy()<< " , "<<"dz "<< it ->dz()<<endl; 
 i ++;
-if (i>=5) break;
+// the if function will only print the first five tracks;;;; if you want to print all tracks paramters comment it
+// and also int i in the line 90 ;;;
+     if (i>=5) break;
 
 
 }
