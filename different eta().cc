@@ -112,7 +112,7 @@ m =0;
    }
    cout <<"the number of tracks in this event = " << tracks ->size()<<endl;
    cout <<"the maximum no of tracks with respect to 0.1 window  = "<< j << endl;
-   cout <<"the maximum no of tracks with respect to 0.1 window  = "<< l << endl;
+   cout <<"the maximum no of tracks with respect to 0.5 window  = "<< l << endl;
 
    
   
