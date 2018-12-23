@@ -21,6 +21,8 @@
 #include "FWCore/MessageLogger/interface/MessageLogger.h"
 
 
+
+
 //
 // class declaration
 //
@@ -88,20 +90,21 @@ DemoAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
    iEvent.getByLabel("generalTracks", tracks); 
    int k =0;
    int j =0;
-   for (reco::TrackCollection::Const_iterator track = tracks->begin() ; track != tracks->end(); track ++ )
+   for (reco::TrackCollection::const_iterator track = tracks->begin() ; track != tracks->end(); track ++ )
    {
-   for (reco::TrackCollection::Const_iterator track1 = tracks->begin() ; track1 != tracks->end(); track1 ++ )
+   for (reco::TrackCollection::const_iterator track1 = tracks->begin() ; track1 != tracks->end(); track1 ++ )
    {
    if (abs(track->eta() - track1->eta()) <= 0.1)
       k = k+1;
    }
    if(k > j)
       j =k;
+k =0;
    }
-   cout <<"the number of tracks in this event = " << tracks ->size()<<endl;
-   cout <<"the maximum no of tracks with respect to 0.1 window  = "<< j << endl;
+cout << "number of tracks = " << tracks->size()<<endl;
+   cout <<"the maximum no of tracks in this event with repect to 0.1 window = "<< j << endl;
    
-  
+
 #ifdef THIS_IS_AN_EVENT_EXAMPLE
    Handle<ExampleData> pIn;
    iEvent.getByLabel("example",pIn);
