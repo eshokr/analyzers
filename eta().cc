@@ -98,7 +98,9 @@ DemoAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
    if(k > j)
       j =k;
    }
-   cout <<"the maximum no of tracks equal = "<< j << endl;
+   cout <<"the number of tracks in this event = " << tracks ->size()<<endl;
+   cout <<"the maximum no of tracks with respect to 0.1 window  = "<< j << endl;
+   
   
 #ifdef THIS_IS_AN_EVENT_EXAMPLE
    Handle<ExampleData> pIn;
