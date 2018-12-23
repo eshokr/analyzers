@@ -1,3 +1,4 @@
+
 // Original Author:  Eslam Shokr
 //         Created:  sun, 23 Dec 2018 22:36:50 GMT
 //
@@ -24,10 +25,10 @@
 // class declaration
 //
 
-class DemoAnalyzer : public edm::EDAnalyzer {
+class DemoAnalyzer1 : public edm::EDAnalyzer {
    public:
-      explicit DemoAnalyzer(const edm::ParameterSet&);
-      ~DemoAnalyzer();
+      explicit DemoAnalyzer1(const edm::ParameterSet&);
+      ~DemoAnalyzer1();
 
       static void fillDescriptions(edm::ConfigurationDescriptions& descriptions);
 
@@ -57,14 +58,14 @@ class DemoAnalyzer : public edm::EDAnalyzer {
 //
 // constructors and destructor
 //
-DemoAnalyzer::DemoAnalyzer(const edm::ParameterSet& iConfig)
+DemoAnalyzer1::DemoAnalyzer1(const edm::ParameterSet& iConfig)
 {
 
 
 }
 
 
-DemoAnalyzer::~DemoAnalyzer()
+DemoAnalyzer1::~DemoAnalyzer1()
 {
  
    // do anything here that needs to be done at desctruction time
@@ -79,17 +80,19 @@ DemoAnalyzer::~DemoAnalyzer()
 
 // ------------ method called for each event  ------------
 void
-DemoAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
+DemoAnalyzer1::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
 {
    using namespace edm;
    using namespace std;
    Handle<reco::TrackCollection> tracks;
    iEvent.getByLabel("generalTracks", tracks); 
-   int k,m =0;
-   int j,l =0;
-   for (reco::TrackCollection::Const_iterator track = tracks->begin() ; track =! tracks->end(); track ++ )
+   int k=0;
+int m =0;
+   int j =0;
+int l =0;
+   for (reco::TrackCollection::const_iterator track = tracks->begin() ; track != tracks->end(); track ++ )
    {
-   for (reco::TrackCollection::Const_iterator track1 = tracks->begin() ; track1 =! tracks->end(); track1 ++ )
+   for (reco::TrackCollection::const_iterator track1 = tracks->begin() ; track1 != tracks->end(); track1 ++ )
    {
    if (abs(track->eta() - track1->eta()) <= 0.1)
      { k = k+1;}
@@ -97,7 +100,6 @@ DemoAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
    if (abs(track->eta() - track1->eta()) <= 0.5)
      { m = m+1;}
       
-     
    }
    
    if(k > j)
@@ -105,7 +107,8 @@ DemoAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
     
      if(m > l)
      { l =m;}
-     
+     k =0;
+m =0;
    }
    cout <<"the number of tracks in this event = " << tracks ->size()<<endl;
    cout <<"the maximum no of tracks with respect to 0.1 window  = "<< j << endl;
@@ -127,20 +130,20 @@ DemoAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
 
 // ------------ method called once each job just before starting event loop  ------------
 void 
-DemoAnalyzer::beginJob()
+DemoAnalyzer1::beginJob()
 {
 }
 
 // ------------ method called once each job just after ending the event loop  ------------
 void 
-DemoAnalyzer::endJob() 
+DemoAnalyzer1::endJob() 
 {
 }
 
 // ------------ method called when starting to processes a run  ------------
 /*
 void 
-DemoAnalyzer::beginRun(edm::Run const&, edm::EventSetup const&)
+DemoAnalyzer1::beginRun(edm::Run const&, edm::EventSetup const&)
 {
 }
 */
@@ -148,7 +151,7 @@ DemoAnalyzer::beginRun(edm::Run const&, edm::EventSetup const&)
 // ------------ method called when ending the processing of a run  ------------
 /*
 void 
-DemoAnalyzer::endRun(edm::Run const&, edm::EventSetup const&)
+DemoAnalyzer1::endRun(edm::Run const&, edm::EventSetup const&)
 {
 }
 */
@@ -156,7 +159,7 @@ DemoAnalyzer::endRun(edm::Run const&, edm::EventSetup const&)
 // ------------ method called when starting to processes a luminosity block  ------------
 /*
 void 
-DemoAnalyzer::beginLuminosityBlock(edm::LuminosityBlock const&, edm::EventSetup const&)
+DemoAnalyzer1::beginLuminosityBlock(edm::LuminosityBlock const&, edm::EventSetup const&)
 {
 }
 */
@@ -164,14 +167,14 @@ DemoAnalyzer::beginLuminosityBlock(edm::LuminosityBlock const&, edm::EventSetup 
 // ------------ method called when ending the processing of a luminosity block  ------------
 /*
 void 
-DemoAnalyzer::endLuminosityBlock(edm::LuminosityBlock const&, edm::EventSetup const&)
+DemoAnalyzer1::endLuminosityBlock(edm::LuminosityBlock const&, edm::EventSetup const&)
 {
 }
 */
 
 // ------------ method fills 'descriptions' with the allowed parameters for the module  ------------
 void
-DemoAnalyzer::fillDescriptions(edm::ConfigurationDescriptions& descriptions) {
+DemoAnalyzer1::fillDescriptions(edm::ConfigurationDescriptions& descriptions) {
   //The following says we do not know what parameters are allowed so do no validation
   // Please change this to state exactly what you do use, even if it is no parameters
   edm::ParameterSetDescription desc;
@@ -180,4 +183,4 @@ DemoAnalyzer::fillDescriptions(edm::ConfigurationDescriptions& descriptions) {
 }
 
 //define this as a plug-in
-DEFINE_FWK_MODULE(DemoAnalyzer);
+DEFINE_FWK_MODULE(DemoAnalyzer1);
