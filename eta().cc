@@ -102,11 +102,7 @@ DemoAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
       j =k;
    }
    cout <<"the maximum no of tracks equal = "<< j << endl;
-   
-   
-   
-   }
-
+  
 #ifdef THIS_IS_AN_EVENT_EXAMPLE
    Handle<ExampleData> pIn;
    iEvent.getByLabel("example",pIn);
