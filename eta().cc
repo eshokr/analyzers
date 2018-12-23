@@ -88,9 +88,9 @@ DemoAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
    iEvent.getByLabel("generalTracks", tracks); 
    int k =0;
    int j =0;
-   for (reco::TrackCollection::Const_iterator track = tracks->begin() ; track =! tracks->end(); track ++ )
+   for (reco::TrackCollection::Const_iterator track = tracks->begin() ; track != tracks->end(); track ++ )
    {
-   for (reco::TrackCollection::Const_iterator track1 = tracks->begin() ; track1 =! tracks->end(); track1 ++ )
+   for (reco::TrackCollection::Const_iterator track1 = tracks->begin() ; track1 != tracks->end(); track1 ++ )
    {
    if (abs(track->eta() - track1->eta()) <= 0.1)
       k = k+1;
