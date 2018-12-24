@@ -26,10 +26,10 @@
 // class declaration
 //
 
-class DemoAnalyzer1 : public edm::EDAnalyzer {
+class DemoAnalyzer2 : public edm::EDAnalyzer {
    public:
-      explicit DemoAnalyzer1(const edm::ParameterSet&);
-      ~DemoAnalyzer1();
+      explicit DemoAnalyzer2(const edm::ParameterSet&);
+      ~DemoAnalyzer2();
 
       static void fillDescriptions(edm::ConfigurationDescriptions& descriptions);
 
@@ -47,7 +47,7 @@ class DemoAnalyzer1 : public edm::EDAnalyzer {
       // ----------member data ---------------------------
   TH1D* histo;
      TH1D* demohisto;
-
+     TH1D* size;
 };
 
 //
@@ -61,7 +61,7 @@ class DemoAnalyzer1 : public edm::EDAnalyzer {
 //
 // constructors and destructor
 //
-DemoAnalyzer1::DemoAnalyzer1(const edm::ParameterSet& iConfig)
+DemoAnalyzer2::DemoAnalyzer2(const edm::ParameterSet& iConfig)
 {
 
   edm::Service<TFileService> fs;
@@ -73,7 +73,7 @@ DemoAnalyzer1::DemoAnalyzer1(const edm::ParameterSet& iConfig)
 }
 
 
-DemoAnalyzer1::~DemoAnalyzer1()
+DemoAnalyzer2::~DemoAnalyzer2()
 {
  
    // do anything here that needs to be done at desctruction time
@@ -88,7 +88,7 @@ DemoAnalyzer1::~DemoAnalyzer1()
 
 // ------------ method called for each event  ------------
 void
-DemoAnalyzer1::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
+DemoAnalyzer2::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
 {
    using namespace edm;
    using namespace std;
@@ -132,20 +132,20 @@ DemoAnalyzer1::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
 
 // ------------ method called once each job just before starting event loop  ------------
 void 
-DemoAnalyzer1::beginJob()
+DemoAnalyzer2::beginJob()
 {
 }
 
 // ------------ method called once each job just after ending the event loop  ------------
 void 
-DemoAnalyzer1::endJob() 
+DemoAnalyzer2::endJob() 
 {
 }
 
 // ------------ method called when starting to processes a run  ------------
 /*
 void 
-DemoAnalyzer1::beginRun(edm::Run const&, edm::EventSetup const&)
+DemoAnalyzer2::beginRun(edm::Run const&, edm::EventSetup const&)
 {
 }
 */
@@ -153,7 +153,7 @@ DemoAnalyzer1::beginRun(edm::Run const&, edm::EventSetup const&)
 // ------------ method called when ending the processing of a run  ------------
 /*
 void 
-DemoAnalyzer1::endRun(edm::Run const&, edm::EventSetup const&)
+DemoAnalyzer2::endRun(edm::Run const&, edm::EventSetup const&)
 {
 }
 */
@@ -161,7 +161,7 @@ DemoAnalyzer1::endRun(edm::Run const&, edm::EventSetup const&)
 // ------------ method called when starting to processes a luminosity block  ------------
 /*
 void 
-DemoAnalyzer1::beginLuminosityBlock(edm::LuminosityBlock const&, edm::EventSetup const&)
+DemoAnalyzer2::beginLuminosityBlock(edm::LuminosityBlock const&, edm::EventSetup const&)
 {
 }
 */
@@ -169,14 +169,14 @@ DemoAnalyzer1::beginLuminosityBlock(edm::LuminosityBlock const&, edm::EventSetup
 // ------------ method called when ending the processing of a luminosity block  ------------
 /*
 void 
-DemoAnalyzer1::endLuminosityBlock(edm::LuminosityBlock const&, edm::EventSetup const&)
+DemoAnalyzer2::endLuminosityBlock(edm::LuminosityBlock const&, edm::EventSetup const&)
 {
 }
 */
 
 // ------------ method fills 'descriptions' with the allowed parameters for the module  ------------
 void
-DemoAnalyzer1::fillDescriptions(edm::ConfigurationDescriptions& descriptions) {
+DemoAnalyzer2::fillDescriptions(edm::ConfigurationDescriptions& descriptions) {
   //The following says we do not know what parameters are allowed so do no validation
   // Please change this to state exactly what you do use, even if it is no parameters
   edm::ParameterSetDescription desc;
@@ -185,4 +185,4 @@ DemoAnalyzer1::fillDescriptions(edm::ConfigurationDescriptions& descriptions) {
 }
 
 //define this as a plug-in
-DEFINE_FWK_MODULE(DemoAnalyzer1);
+DEFINE_FWK_MODULE(DemoAnalyzer2);
