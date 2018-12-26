@@ -43,7 +43,9 @@ class trackparam : public edm::EDAnalyzer {
       //virtual void endLuminosityBlock(edm::LuminosityBlock const&, edm::EventSetup const&) override;
 
       // ----------member data ---------------------------
-    
+   double px = 0.0 ;
+   double py = 0.0;
+   double pz = 0.0 ;
 };
 
 //
@@ -87,20 +89,17 @@ trackparam::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
 
    using namespace edm;
 using namespace std;
-int i =0;
    Handle<vector<reco::Track>> tracks;
    iEvent.getByLabel("generalTracks", tracks); 
-  for (vector<reco::Track>::const_iterator it = tracks->begin(); it != tracks -> end(); it ++ )
+  for (vector<reco::Track>::const_iterator track = tracks->begin(); track != tracks -> end(); track ++ )
 {
-cout << "the number of the track = " << i+1 << " , "<< "ch "<< it -> charge()<<" , "<<"eta "<<it ->eta() <<" , "<< "phi "<<it ->phi()<<" , "<<"pt "<<it ->pt()<<" , "<<"dxy "<< it ->dxy()<< " , "<<"dz "<< it ->dz()<<endl; 
-i ++;
-// the if function will only print the first five tracks;;;; if you want to print all tracks paramters comment it
-// and also int i in the line 90 ;;;
-     if (i>=5) break;
-
-
+px = px + track -> px();
+px = px + track -> px();
+px = px + track -> px();   
 }
-
+px_ -> Fill(px);
+py_ -> Fill(py);
+pz_ -> Fill(pz);
 
    
 
@@ -120,6 +119,11 @@ i ++;
 void 
 trackparam::beginJob()
 {
+   TH1D* px_ = fs -> make<TH1D>("px","PX", 100, -1000 , 1000);
+      TH1D* py_ = fs -> make<TH1D>("py","Py", 100, -1000 , 1000);
+   TH1D* pz_ = fs -> make<TH1D>("pz","Pz", 100, -1000 , 1000);
+
+   
 }
 
 // ------------ method called once each job just after ending the event loop  ------------
