@@ -12,8 +12,8 @@
 // because i want to use tracks data type
 #include "DataFormats/TrackReco/interface/Track.h"
 #include "DataFormats/TrackReco/interface/TrackFwd.h"
-//
-
+#include "FWCore/ServiceRegistry/interface/Service.h"
+#include "CommonTools/UtilAlgos/interface/TFileService.h"
 #include "FWCore/MessageLogger/interface/MessageLogger.h"
 
 
@@ -24,10 +24,10 @@
 // class declaration
 //
 
-class trackparam : public edm::EDAnalyzer {
+class VectorSumMomentum : public edm::EDAnalyzer {
    public:
-      explicit trackparam(const edm::ParameterSet&);
-      ~trackparam();
+      explicit VectorSumMomentum(const edm::ParameterSet&);
+      ~VectorSumMomentum();
 
       static void fillDescriptions(edm::ConfigurationDescriptions& descriptions);
 
@@ -46,6 +46,10 @@ class trackparam : public edm::EDAnalyzer {
    double px = 0.0 ;
    double py = 0.0;
    double pz = 0.0 ;
+TH1D * px_;
+TH1D * py_;
+TH1D * pz_;
+
 };
 
 //
@@ -59,7 +63,7 @@ class trackparam : public edm::EDAnalyzer {
 //
 // constructors and destructor
 //
-trackparam::trackparam(const edm::ParameterSet& iConfig)
+VectorSumMomentum::VectorSumMomentum(const edm::ParameterSet& iConfig)
 {
    //now do what ever initialization is needed
 
@@ -68,7 +72,7 @@ trackparam::trackparam(const edm::ParameterSet& iConfig)
 }
 
 
-trackparam::~trackparam()
+VectorSumMomentum::~VectorSumMomentum()
 {
  
    // do anything here that needs to be done at desctruction time
@@ -83,7 +87,7 @@ trackparam::~trackparam()
 
 // ------------ method called for each event  ------------
 void
-trackparam::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
+VectorSumMomentum::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
 {
 // aim // we want to print 5 tracks paramters in every event
 
@@ -117,25 +121,27 @@ pz_ -> Fill(pz);
 
 // ------------ method called once each job just before starting event loop  ------------
 void 
-trackparam::beginJob()
+VectorSumMomentum::beginJob()
 {
-   TH1D* px_ = fs -> make<TH1D>("px","PX", 100, -1000 , 1000);
-      TH1D* py_ = fs -> make<TH1D>("py","Py", 100, -1000 , 1000);
-   TH1D* pz_ = fs -> make<TH1D>("pz","Pz", 100, -1000 , 1000);
+  edm::Service<TFileService> fs;
+
+   px_ = fs -> make<TH1D>("px","PX", 100, -1000 , 1000);
+      py_ = fs -> make<TH1D>("py","Py", 100, -1000 , 1000);
+   pz_ = fs -> make<TH1D>("pz","Pz", 100, -1000 , 1000);
 
    
 }
 
 // ------------ method called once each job just after ending the event loop  ------------
 void 
-trackparam::endJob() 
+VectorSumMomentum::endJob() 
 {
 }
 
 // ------------ method called when starting to processes a run  ------------
 /*
 void 
-trackparam::beginRun(edm::Run const&, edm::EventSetup const&)
+VectorSumMomentum::beginRun(edm::Run const&, edm::EventSetup const&)
 {
 }
 */
@@ -143,7 +149,7 @@ trackparam::beginRun(edm::Run const&, edm::EventSetup const&)
 // ------------ method called when ending the processing of a run  ------------
 /*
 void 
-trackparam::endRun(edm::Run const&, edm::EventSetup const&)
+VectorSumMomentum::endRun(edm::Run const&, edm::EventSetup const&)
 {
 }
 */
@@ -151,7 +157,7 @@ trackparam::endRun(edm::Run const&, edm::EventSetup const&)
 // ------------ method called when starting to processes a luminosity block  ------------
 /*
 void 
-trackparam::beginLuminosityBlock(edm::LuminosityBlock const&, edm::EventSetup const&)
+VectorSumMomentum::beginLuminosityBlock(edm::LuminosityBlock const&, edm::EventSetup const&)
 {
 }
 */
@@ -159,14 +165,14 @@ trackparam::beginLuminosityBlock(edm::LuminosityBlock const&, edm::EventSetup co
 // ------------ method called when ending the processing of a luminosity block  ------------
 /*
 void 
-trackparam::endLuminosityBlock(edm::LuminosityBlock const&, edm::EventSetup const&)
+VectorSumMomentum::endLuminosityBlock(edm::LuminosityBlock const&, edm::EventSetup const&)
 {
 }
 */
 
 // ------------ method fills 'descriptions' with the allowed parameters for the module  ------------
 void
-trackparam::fillDescriptions(edm::ConfigurationDescriptions& descriptions) {
+VectorSumMomentum::fillDescriptions(edm::ConfigurationDescriptions& descriptions) {
   //The following says we do not know what parameters are allowed so do no validation
   // Please change this to state exactly what you do use, even if it is no parameters
   edm::ParameterSetDescription desc;
@@ -175,4 +181,4 @@ trackparam::fillDescriptions(edm::ConfigurationDescriptions& descriptions) {
 }
 
 //define this as a plug-in
-DEFINE_FWK_MODULE(trackparam);
+DEFINE_FWK_MODULE(VectorSumMomentum);
