@@ -98,8 +98,8 @@ using namespace std;
   for (vector<reco::Track>::const_iterator track = tracks->begin(); track != tracks -> end(); track ++ )
 {
 px = px + track -> px();
-px = px + track -> px();
-px = px + track -> px();   
+py = py + track -> py();
+pz = pz + track -> pz();   
 }
 px_ -> Fill(px);
 py_ -> Fill(py);
