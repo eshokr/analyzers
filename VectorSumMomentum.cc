@@ -43,9 +43,9 @@ class VectorSumMomentum : public edm::EDAnalyzer {
       //virtual void endLuminosityBlock(edm::LuminosityBlock const&, edm::EventSetup const&) override;
 
       // ----------member data ---------------------------
-   double px = 0.0 ;
-   double py = 0.0;
-   double pz = 0.0 ;
+   double px  ;
+   double py ;
+   double pz ;
 TH1D * px_;
 TH1D * py_;
 TH1D * pz_;
@@ -90,7 +90,9 @@ void
 VectorSumMomentum::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
 {
 // aim // we want to print 5 tracks paramters in every event
-
+   px =0.0;
+   py =0.0;
+   pz =0.0;
    using namespace edm;
 using namespace std;
    Handle<vector<reco::Track>> tracks;
