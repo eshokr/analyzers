@@ -97,8 +97,43 @@ DemoAnalyzer2::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
    int k=0; int m =0; int j =0; int l =0;
    for (reco::TrackCollection::const_iterator track = tracks->begin() ; track != tracks->end(); track ++ )
    {
+       // tracks selection for track
+         // 1- high quality
+if (track -> quality(reco::Track::qualityByName("highPurity")))
+  // 2- |η| < 2.4
+   if (abs (track -> eta()) < 2.4 )
+         // 3- pt  0.1 GeV/c < pt <5.0 GeV/c. 
+if (track -> pt() >0.1 && track -> pt() <5.0 )
+         // 4- σ(pT)/pT < 10 %
+if (track-> ptError()/track-> pt() < 0.1)   
+         // 5- dz/ σ(dz) < 3
+        if (track-> dz()/ track-> dzError() < 3.0)   
+  // 6- dxy/ σ(dxy) <3
+        if (track-> dxy()/ track-> dxyError() < 3.0)  
+        
+            
+            
+            
+            
+            
+            
    for (reco::TrackCollection::const_iterator track1 = tracks->begin() ; track1 != tracks->end(); track1 ++ )
    {
+      // tracks selection for track1
+         // 1- high quality
+if (track1 -> quality(reco::Track::qualityByName("highPurity")))
+  // 2- |η| < 2.4
+   if (abs (track1 -> eta()) < 2.4 )
+         // 3- pt  0.1 GeV/c < pt <5.0 GeV/c. 
+if (track1 -> pt() >0.1 && track1 -> pt() <5.0 )
+         // 4- σ(pT)/pT < 10 %
+if (track1-> ptError()/track1-> pt() < 0.1)   
+         // 5- dz/ σ(dz) < 3
+        if (track1-> dz()/ track1-> dzError() < 3.0)   
+  // 6- dxy/ σ(dxy) <3
+        if (track1-> dxy()/ track1-> dxyError() < 3.0)   
+
+  
    if (abs(track->eta() - track1->eta()) <= 0.1)
      { k = k+1;}
    if (abs(track->eta() - track1->eta()) <= 0.5)
