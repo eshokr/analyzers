@@ -45,9 +45,11 @@ class DemoAnalyzer2 : public edm::EDAnalyzer {
       //virtual void endLuminosityBlock(edm::LuminosityBlock const&, edm::EventSetup const&) override;
 
       // ----------member data ---------------------------
-  TH1D* histo;
-     TH1D* demohisto;
-     TH1D* size;
+  TH1D* histo1;
+  TH1D* histo2;
+  TH1D* histo5;
+   
+  TH1D* histoNo;
 };
 
 //
@@ -65,9 +67,12 @@ DemoAnalyzer2::DemoAnalyzer2(const edm::ParameterSet& iConfig)
 {
 
   edm::Service<TFileService> fs;
-   demohisto = fs->make<TH1D>("eta(0.5)" , "eta(0.5)" , 100 , 0 , 1000 );   
-    histo = fs->make<TH1D>("eta(0.1)" , "eta(0.1)" , 100 , 0 , 500 );
-       size = fs->make<TH1D>("tracksno." , "tracksno." , 100 , 0 , 3000 );
+   histo1 = fs->make<TH1D>("eta(0.1)" , "eta(0.1)" , 100 , 0 , 500 );
+   histo2 = fs->make<TH1D>("eta(0.2)" , "eta(0.2)" , 100 , 0 , 700 );
+   histo5 = fs->make<TH1D>("eta(0.5)" , "eta(0.5)" , 100 , 0 , 1000 );   
+
+   
+   histoNo = fs->make<TH1D>("tracksno." , "tracksno." , 100 , 0 , 3000 );
 
 
 }
@@ -94,64 +99,61 @@ DemoAnalyzer2::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
    using namespace std;
    Handle<reco::TrackCollection> tracks;
    iEvent.getByLabel("generalTracks", tracks); 
-   int k=0; int m =0; int j =0; int l =0;
+   int k1 =0; int y2 =0; int m5 =0; int l =0; int s =0; int z =0;
    for (reco::TrackCollection::const_iterator track = tracks->begin() ; track != tracks->end(); track ++ )
    {
        // tracks selection for track
          // 1- high quality
-if (track -> quality(reco::Track::qualityByName("highPurity")))
-  // 2- |η| < 2.4
-   if (abs (track -> eta()) < 2.4 )
-         // 3- pt  0.1 GeV/c < pt <5.0 GeV/c. 
-if (track -> pt() >0.1 && track -> pt() <5.0 )
-         // 4- σ(pT)/pT < 10 %
-if (track-> ptError()/track-> pt() < 0.1)   
-         // 5- dz/ σ(dz) < 3
-        if (track-> dz()/ track-> dzError() < 3.0)   
-  // 6- dxy/ σ(dxy) <3
-        if (track-> dxy()/ track-> dxyError() < 3.0)  
-        
-            
-            
-            
-            
-            
-            
+if (track -> quality(reco::Track::qualityByName("highPurity"))                  // 1- high quality
+     && abs (track -> eta()) < 2.4                                              // 2- |η| < 2.4
+     && track ->pt() >0.1 && track ->pt() <5.0                                  // 3- pt  0.1 GeV/c < pt <5.0 GeV/c.
+     && track ->ptError()/track ->pt() < 0.1                                    // 4- σ(pT)/pT < 10 %
+     && abs(track ->dz())/ track ->dzError() < 3.0                              // 5- dz/ σ(dz) < 3
+     && abs(track ->dxy())/ track ->dxyError() < 3.0    )                       // 6- dxy/ σ(dxy) <3
+       
    for (reco::TrackCollection::const_iterator track1 = tracks->begin() ; track1 != tracks->end(); track1 ++ )
    {
       // tracks selection for track1
-         // 1- high quality
-if (track1 -> quality(reco::Track::qualityByName("highPurity")))
-  // 2- |η| < 2.4
-   if (abs (track1 -> eta()) < 2.4 )
-         // 3- pt  0.1 GeV/c < pt <5.0 GeV/c. 
-if (track1 -> pt() >0.1 && track1 -> pt() <5.0 )
-         // 4- σ(pT)/pT < 10 %
-if (track1-> ptError()/track1-> pt() < 0.1)   
-         // 5- dz/ σ(dz) < 3
-        if (track1-> dz()/ track1-> dzError() < 3.0)   
-  // 6- dxy/ σ(dxy) <3
-        if (track1-> dxy()/ track1-> dxyError() < 3.0)   
-
+if (track1 -> quality(reco::Track::qualityByName("highPurity"))                 // 1- high quality
+     && abs (track1 -> eta()) < 2.4                                             // 2- |η| < 2.4
+     &&track1 ->pt() >0.1 && track1 ->pt() <5.0                                 // 3- pt  0.1 GeV/c < pt <5.0 GeV/c.
+     &&track1 ->ptError()/track1 ->pt() < 0.1                                   // 4- σ(pT)/pT < 10 %
+     &&abs(track1 ->dz())/ track1 ->dzError() < 3.0                             // 5- dz/ σ(dz) < 3
+     &&abs(track1 ->dxy())/ track1 ->dxyError() < 3.0      )                    // 6- dxy/ σ(dxy) <3
+                                                                           
+       if (abs(track ->eta() - track1 ->eta()) <= 0.1)
+     { k1 =k1+1;}
   
-   if (abs(track->eta() - track1->eta()) <= 0.1)
-     { k = k+1;}
-   if (abs(track->eta() - track1->eta()) <= 0.5)
-     { m = m+1;}   
+       if (abs(track ->eta() - track1 ->eta()) <= 0.2)
+     { y2 =y2+1;}   
+      
+       if (abs(track ->eta() - track1 ->eta()) <= 0.5)
+     { m5 =m5+1;}   
+   
    }
-      if(k > j)
-               { j =k;}
-      if(m > l)
-               { l =m;}
-     k =0; m =0; }
-   size ->Fill(tracks -> size());
+   // k is for 0.1 for loop and l is the maxmium for 0.1
+      if(k1 > l)
+               { l =k1;}
+   // z is for 0.2 for loop and z is the maxmium for 0.2
+       if(y2 > z)
+               { z =y2;} 
+   // m is for 0.1 for loop and s is the maxmium for 0.5
+       if(m5 > s)
+               { s =m5;}
+   // after fishing for loop and give numbers for l, z and s make k, m and y zero again for the second loop;
+       k1 =0; y2 =0; m5 =0; }
+   
+   histoNo ->Fill(tracks ->size());
    cout <<"the number of tracks in this event = " << tracks ->size()<<endl;
-      histo->Fill(j);
-   cout <<"the maximum no of tracks with respect to 0.1 window  = "<< j << endl;
-      demohisto->Fill(l);
-   cout <<"the maximum no of tracks with respect to 0.5 window  = "<< l << endl;
+   
+   histo1 ->Fill(l);
+   cout <<"the maximum no of tracks with respect to 0.1 window  = "<< l << endl;
 
+   histo2 ->Fill(z);
+   cout <<"the maximum no of tracks with respect to 0.2 window  = "<< z << endl;
   
+   histo5 ->Fill(s);
+   cout <<"the maximum no of tracks with respect to 0.5 window  = "<< s << endl;
   
 #ifdef THIS_IS_AN_EVENT_EXAMPLE
    Handle<ExampleData> pIn;
