@@ -26,10 +26,10 @@
 // class declaration
 //
 
-class DemoAnalyzer3 : public edm::EDAnalyzer {
+class DemoAnalyzer4 : public edm::EDAnalyzer {
    public:
-      explicit DemoAnalyzer3(const edm::ParameterSet&);
-      ~DemoAnalyzer3();
+      explicit DemoAnalyzer4(const edm::ParameterSet&);
+      ~DemoAnalyzer4();
 
       static void fillDescriptions(edm::ConfigurationDescriptions& descriptions);
 
@@ -59,14 +59,14 @@ class DemoAnalyzer3 : public edm::EDAnalyzer {
 //
 // constructors and destructor
 //
-DemoAnalyzer3::DemoAnalyzer3(const edm::ParameterSet& iConfig)
+DemoAnalyzer4::DemoAnalyzer4(const edm::ParameterSet& iConfig)
 {
 
 
 }
 
 
-DemoAnalyzer3::~DemoAnalyzer3()
+DemoAnalyzer4::~DemoAnalyzer4()
 {
  
    // do anything here that needs to be done at desctruction time
@@ -81,7 +81,7 @@ DemoAnalyzer3::~DemoAnalyzer3()
 
 // ------------ method called for each event  ------------
 void
-DemoAnalyzer3::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
+DemoAnalyzer4::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
 {
    using namespace edm;
    using namespace std;
@@ -91,9 +91,10 @@ DemoAnalyzer3::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
    for (reco::TrackCollection::const_iterator track = tracks->begin() ; track != tracks->end(); track ++ )
    {
 k = k +1;
-   }
-     cout <<"the number of tracks "<< k;
 
+   
+}
+  cout <<"the number of events = "<<k<<endl;
 #ifdef THIS_IS_AN_EVENT_EXAMPLE
    Handle<ExampleData> pIn;
    iEvent.getByLabel("example",pIn);
@@ -108,13 +109,13 @@ k = k +1;
 
 // ------------ method called once each job just before starting event loop  ------------
 void 
-DemoAnalyzer3::beginJob()
+DemoAnalyzer4::beginJob()
 {
 }
 
 // ------------ method called once each job just after ending the event loop  ------------
 void 
-DemoAnalyzer3::endJob() 
+DemoAnalyzer4::endJob() 
 {
 }
 
@@ -152,7 +153,7 @@ DemoAnayzer3::endLuminosityBlock(edm::LuminosityBlock const&, edm::EventSetup co
 
 // ------------ method fills 'descriptions' with the allowed parameters for the module  ------------
 void
-DemoAnalyzer3::fillDescriptions(edm::ConfigurationDescriptions& descriptions) {
+DemoAnalyzer4::fillDescriptions(edm::ConfigurationDescriptions& descriptions) {
   //The following says we do not know what parameters are allowed so do no validation
   // Please change this to state exactly what you do use, even if it is no parameters
   edm::ParameterSetDescription desc;
@@ -161,4 +162,4 @@ DemoAnalyzer3::fillDescriptions(edm::ConfigurationDescriptions& descriptions) {
 }
 
 //define this as a plug-in
-DEFINE_FWK_MODULE(DemoAnalyzer3);
+DEFINE_FWK_MODULE(DemoAnalyzer4);
