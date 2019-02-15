@@ -20,6 +20,10 @@
 #include "FWCore/MessageLogger/interface/MessageLogger.h"
 #include "FWCore/ServiceRegistry/interface/Service.h"
 #include "CommonTools/UtilAlgos/interface/TFileService.h"
+
+#include "DataFormats/Candidate/interface/VertexCompositeCandidate.h"
+#include "DataFormats/VertexReco/interface/Vertex.h"
+
 #include "TH1.h"
 
 //
@@ -99,7 +103,7 @@ DemoAnalyzer5::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
    using namespace std;
    Handle<reco::TrackCollection> tracks;
        iEvent.getByLabel("generalTracks", tracks); 
-   Handle<std::vector<reco::Vertex> > primary_vertices;
+   Handle<vector<reco::Vertex> > primary_vertices;
        iEvent.getByLabel("offlinePrimaryVertices", primary_vertices);
    
 cout << "the number of primary vertices in this event is = " << primary_vertices - > size () << endl;
