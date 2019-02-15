@@ -108,10 +108,11 @@ DemoAnalyzer5::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
    // print the number of primary vertex in this event to screen
 cout << "the number of primary vertices in this event is = " << primary_vertices - > size () << endl;
    
-   // to print the number of tracks in the primary vertices.
+   // to print the number of tracks in the primary vertices. also print the vertex position in z and rho
    for (vector<reco::Vertex>::const_iterator vertices = primary_vertices->begin() ; vertices != primary_vertices->end(); vertices ++ )
    {
    cout << "   Vertex has nTracks: " << vertices ->nTracks() << " and tracksSize:" << vertices ->tracksSize() << endl;
+       cout << "position in z = " << vertices ->position().z() << " position in rho = " << vertices -> position().Rho() << endl;
    }
    
    int k1 =0; int y2 =0; int m5 =0; int l =0; int s =0; int z =0;
