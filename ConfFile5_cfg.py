@@ -25,6 +25,27 @@ process.source = cms.Source("PoolSource",
                 )
                             )
 
+process.noscraping = cms.EDFilter("FilterOutScraping",
+        applyfilter = cms.untracked.bool(True),
+        debugOn = cms.untracked.bool(False),   
+        numtrack = cms.untracked.uint32(10),
+        thresh = cms.untracked.double(0.2)
+    )
+
+process.goodVertices = cms.EDFilter("VertexSelector",
+                                    src = cms.InputTag("offlinePrimaryVertices"),
+                                    cut = cms.string("!isFake && ndof > 4 && abs(z) <= 24 && position.Rho <= 2"),
+                                    filter = cms.bool(False)  # otherwise it won't filter the events, just produce an empty vertex collection.
+                                    )
+
+process.goodTracks  = cms.EDFilter("Trackelector",
+               src  = cms.InputTag("generalTracks"),
+               #cut = cms.string("!isFake && ndof > 4 && abs(z) <= 24 && position.Rho <= 2"),
+               cut  = cms.string('charge !=0 && found > 4 && pt > 0.4 && hitPattern.pixelLayersWithMeasurement > 0 && abs(d0) < 3.0 && abs(dz) < 25.0 && chi2/ndof <4.0'),
+
+             filter = cms.bool(False)   # otherwise it won't filter the events, just produce an empty vertex collection.
+                                    )
+
 process.demo = cms.EDAnalyzer('DemoAnalyzer5',
 trck = cms.InputTag("generalTracks"),
 	bmspt = cms.InputTag("offlineBeamSpot"),
@@ -38,4 +59,8 @@ process.TFileService = cms.Service("TFileService",
     
     
 
-process.p = cms.Path(process.demo)
+process.p = cms.Path(
+          process.noscraping*
+          process.goodVertices*
+          process.goodTracks*
+          process.demo)
