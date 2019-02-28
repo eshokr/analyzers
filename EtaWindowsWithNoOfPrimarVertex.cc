@@ -1,10 +1,3 @@
-// Original Author:  Eslam Shokr
-//         Created:  sun, 23 Dec 2018 22:36:50 GMT
-//
-//
-
-
-// system include files
 #include <memory>
 
 // user include files
@@ -101,12 +94,16 @@ DemoAnalyzer5::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
 {
    using namespace edm;
    using namespace std;
-   Handle<reco::TrackCollection> tracks;
+
+Handle<reco::TrackCollection> tracks;
        iEvent.getByLabel("generalTracks", tracks); 
-   Handle<vector<reco::Vertex> > primary_vertices;
+   
+Handle<vector<reco::Vertex> > primary_vertices;
        iEvent.getByLabel("offlinePrimaryVertices", primary_vertices);
-   // print the number of primary vertex in this event to screen
-cout << "the number of primary vertices in this event is = " << primary_vertices - > size () << endl;
+ 
+
+  // print the number of primary vertex in this event to screen
+cout << "the number of primary vertices in this event is = " << primary_vertices -> size () << endl;
    
    // to print the number of tracks in the primary vertices. also print the vertex position in z and rho
    for (vector<reco::Vertex>::const_iterator vertices = primary_vertices->begin() ; vertices != primary_vertices->end(); vertices ++ )
