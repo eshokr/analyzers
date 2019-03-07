@@ -245,6 +245,7 @@ if (track2 -> quality(reco::Track::qualityByName("highPurity"))                 
      && track2 ->pt() >0.4  && track2 ->pt() <5.0                                // 3- pt >0.4 GeV/c.
      && track2 ->ptError()/track2 ->pt() < 0.1                                   // 4- σ(pT)/pT < 10 %                                
      && fabs(track2 ->dz()/ track2 ->dzError()) < 3.0                            // 5- dz/ σ(dz) < 3
+      && track2 ->numberOfValidHits() >5                                         // 5- number of valid hits >5
      && fabs(track2 ->dxy()/track2 ->dxyError()) < 3.0    )                      // 6- dxy/σ(dxy)
 j = j+1;
 }
@@ -258,9 +259,10 @@ if (track3 -> quality(reco::Track::qualityByName("highPurity"))                 
      && fabs(track3 -> eta()) < 2.4                                              // 2- |η| < 2.4
      &&track3 ->pt() >0.4   &&track3 ->pt() <5.0                                 // 3- pt >0.4 GeV/c. && pt<5.0 GeV/c
      && track3 ->ptError()/track3 ->pt() < 0.1                                   // 4- σ(pT)/pT < 10                                
-           // 5- dz/ σ(dz) < 3
+     && track3 ->numberOfValidHits() >5                                          // 5- number of valid hits >5
+         // 5- dz/ σ(dz) < 3
      && fabs(track3 ->dz(vxx ->position())/sqrt(pow(track3->dzError(),2)+pow(vxx->zError(),2))) < 3.0        
-
+        // 6- dxy/ σ(dxy) < 3
      && fabs(track3 ->dxy(vxx ->position())/sqrt(pow(track3->dxyError(),2)+pow(vxx->xError(),2)+pow(vxx->yError(),2)) < 3.0)) 
 {
 //fill histograms after tracks selection
@@ -288,6 +290,7 @@ if (track -> quality(reco::Track::qualityByName("highPurity"))                  
      && fabs(track -> eta()) < 2.4                                              // 2- |η| < 2.4
      && track ->pt() >0.4 &&track ->pt() <5.0                                   // 3-pt >0.4 GeV/c && pt < 5.0 GeV/c. 
      && track ->ptError()/track ->pt() < 0.1                                    // 4- σ(pT)/pT < 10                  
+      && track ->numberOfValidHits() >5                                          // 5- number of valid hits >5
      // 5- dz/ σ(dz) < 3              
      && fabs(track ->dz(vxx ->position())/sqrt(pow(track->dzError(),2)+pow(vxx->zError(),2))) < 3.0 
      //6-dxy/ σ(dxy)<3
@@ -303,7 +306,8 @@ if (track1 -> quality(reco::Track::qualityByName("highPurity"))                 
      && fabs(track1 -> eta()) < 2.4                                             // 2- |η| < 2.4
      &&track1 ->pt() >0.4 &&track1 ->pt() <5.0                                  // 3- pt  0.1 GeV/c && pt <5.0 GeV/c.
      && track1 ->ptError()/track1 ->pt() < 0.1                                  // 4- σ(pT)/pT < 10                                
-           // 5- dz/ σ(dz) < 3
+ && track1 ->numberOfValidHits() >5                                          // 5- number of valid hits >5     
+      // 5- dz/ σ(dz) < 3
      && fabs(track1 ->dz(vxx ->position())/sqrt(pow(track1->dzError(),2)+pow(vxx->zError(),2))) < 3.0         
            //6-dxy/σ(dxy)
      && fabs(track1 ->dxy(vxx ->position())/sqrt(pow(track1->dxyError(),2)+pow(vxx->xError(),2)+pow(vxx->yError(),2)) < 3.0)) 
@@ -424,7 +428,7 @@ DemoAnalyzer6::beginJob()
    histod0bs = fs->make<TH1D>("tracksd0bs" , "tracksd0bs" , 100 , -3 , 3 );
    histodzbs = fs->make<TH1D>("tracksdzbs" , "tracksdzbs" , 100 , -10, 10) ;
 //******************************************************************************************************************************//
-  histohn = fs->make<TH1D>("trackshitsn" , "trackshitsno" , 200 , 0, 100) ;
+  histohn = fs->make<TH1D>("trackshitsno" , "trackshitsno" , 200 , 0, 100) ;
 
   //graphno = fs->make<TH1D>("gtracksno." , "gtracksno." , 1000 , 0 , 15000 );
 //f= new TFile ("test.root","RECREATE");
