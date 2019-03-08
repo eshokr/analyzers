@@ -263,7 +263,7 @@ if (track3 -> quality(reco::Track::qualityByName("highPurity"))                 
          // 5- dz/ σ(dz) < 3
      && fabs(track3 ->dz(vxx ->position())/sqrt(pow(track3->dzError(),2)+pow(vxx->zError(),2))) < 3.0        
         // 6- dxy/ σ(dxy) < 3
-     && fabs(track3 ->dxy(vxx ->position())/sqrt(pow(track3->dxyError(),2)+pow(vxx->xError(),2)+pow(vxx->yError(),2)) < 3.0)) 
+     && fabs(track3 ->dxy(vxx ->position())/sqrt(pow(track3->dxyError(),2)+pow(vxx->xError(),2)+pow(vxx->yError(),2))) < 3.0) 
 {
 //fill histograms after tracks selection
 histod0 ->Fill(track3 ->dxy());
@@ -294,7 +294,7 @@ if (track -> quality(reco::Track::qualityByName("highPurity"))                  
      // 5- dz/ σ(dz) < 3              
      && fabs(track ->dz(vxx ->position())/sqrt(pow(track->dzError(),2)+pow(vxx->zError(),2))) < 3.0 
      //6-dxy/ σ(dxy)<3
-     && fabs(track ->dxy(vxx ->position())/sqrt(pow(track->dxyError(),2)+pow(vxx->xError(),2)+pow(vxx->yError(),2)) < 3.0)) 
+     && fabs(track ->dxy(vxx ->position())/sqrt(pow(track->dxyError(),2)+pow(vxx->xError(),2)+pow(vxx->yError(),2))) < 3.0) 
 
 
 {
@@ -310,7 +310,7 @@ if (track1 -> quality(reco::Track::qualityByName("highPurity"))                 
       // 5- dz/ σ(dz) < 3
      && fabs(track1 ->dz(vxx ->position())/sqrt(pow(track1->dzError(),2)+pow(vxx->zError(),2))) < 3.0         
            //6-dxy/σ(dxy)
-     && fabs(track1 ->dxy(vxx ->position())/sqrt(pow(track1->dxyError(),2)+pow(vxx->xError(),2)+pow(vxx->yError(),2)) < 3.0)) 
+     && fabs(track1 ->dxy(vxx ->position())/sqrt(pow(track1->dxyError(),2)+pow(vxx->xError(),2)+pow(vxx->yError(),2))) < 3.0) 
 {                                                                           
        if (abs(track ->eta() - track1 ->eta()) <= 0.1)
      { k1 =k1+1;}
