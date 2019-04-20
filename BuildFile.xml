@@ -1,6 +1,4 @@
-<export>
-</export>
-<library   name="PhysicsToolsPatExamples_plugins" file="*.cc">
+
   <use   name="FWCore/Framework"/>
   <use   name="FWCore/ParameterSet"/>
   <use   name="FWCore/MessageLogger"/>
@@ -20,4 +18,4 @@
   <use   name="PhysicsTools/CandUtils"/>
   <use   name="PhysicsTools/UtilAlgos"/>
   <use   name="root"/>
-</library>
+<flags EDM_PLUGIN="1"/>
